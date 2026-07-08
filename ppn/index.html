@@ -24,11 +24,11 @@
 <main>
 <article>
   <h1>A Decentralized Private Payment Network</h1>
-  <p class="meta">By Leo Glisic · DRAFT v3, July 2026 · <a href="/papers/ppn-litepaper-v1.pdf">Litepaper (PDF, v1)</a></p>
+  <p class="meta">July 2026 · <a href="/papers/ppn-litepaper-v1.pdf">Lite paper (PDF, v1)</a></p>
 
   <hr>
 
-  <p>This week, a consortium of more than 140 companies, including Visa, Mastercard, Stripe, BlackRock, Coinbase, and Google, announced OUSD: a stablecoin for everyday payments, zero fees to mint and redeem, reserve yield shared among the partners. Circle&rsquo;s stock fell 13% on the news. And they&rsquo;re right about the big thing. When the biggest names in money agree that payments are moving on-chain, that debate is over.</p>
+  <p>Last week, a consortium of more than 140 companies, including Visa, Mastercard, Stripe, BlackRock, Coinbase, and Google, announced OUSD: a stablecoin for everyday payments, zero fees to mint and redeem, reserve yield shared among the partners. Circle&rsquo;s stock fell 13% on the news. And they&rsquo;re right about the big thing. When the biggest names in money agree that payments are moving on-chain, that debate is over.</p>
 
   <p>But the announcement leaves two questions unanswered. Who can see your payments? OUSD launches on fully public ledgers, run by companies whose businesses run on payment data, and nothing published so far addresses privacy at all. And who can turn your account off? The stablecoins OUSD competes with can freeze any address they choose, and a consortium coin is not going to have fewer controls than the coins it replaces. Somebody holds the switch.</p>
 
@@ -52,19 +52,27 @@
 
   <p>Every Guardian is backed by an insurance pool: the Guardian&rsquo;s own money (say 15% of the pool), which it forfeits if it fails its users, plus capital from an open underwriting market where anyone can participate. Coverage per user is public. You can&rsquo;t inspect a Guardian&rsquo;s security practices, but you can see exactly what you&rsquo;d be paid if your privacy fails, and compare Guardians on that number.</p>
 
-  <p>My favorite part: the honeypot. Inside each pool sits a standing bounty, say 5% of the pool, paid automatically by smart contract to anyone who can <em>prove</em> they possess a Guardian&rsquo;s user data. The claim is a game you can&rsquo;t bluff. First you commit to your copy of the dataset. Only then does the contract draw its challenge: 64 random entries, which you must match against the chain&rsquo;s sealed commitments, in zero knowledge, so proving the theft doesn&rsquo;t leak the data again. Hold the full dataset and you pass easily. Hold half and your odds are below one in 10<sup>19</sup>. When a claim succeeds, the code does everything at once: the bounty pays out, the Guardian&rsquo;s 15% is forfeited into the pool, every affected user is compensated automatically (and privately), and users rotate to new Guardians, so the stolen data goes stale within days.</p>
+  <p>My favorite part is the honeypot. Inside each pool sits a standing bounty, say 5% of the pool, paid automatically by smart contract to anyone who can <em>prove</em> they possess a Guardian&rsquo;s user data. The claim is a game you can&rsquo;t bluff. First you commit to your copy of the dataset. Only then does the contract draw its challenge: 64 random entries, which you must match against the chain&rsquo;s sealed commitments, in zero knowledge, so proving the theft doesn&rsquo;t leak the data again. Hold the full dataset and you pass easily. Hold half and your odds are below one in 10<sup>19</sup>. When a claim succeeds, the code does everything at once: the bounty pays out, the Guardian&rsquo;s 15% is forfeited into the pool, every affected user is compensated automatically (and privately), and users rotate to new Guardians, so the stolen data goes stale within days.</p>
 
   <p>But the Guardian never steals its own honeypot: it would forfeit three times the prize, plus its whole business. An insider can claim it, and that&rsquo;s intended. It forces the Guardian to run internal controls so hardened that no employee can ever assemble the full dataset. Anyone who buys stolen data can double-cross the seller and claim the bounty, anonymously and profitably, so data thieves can&rsquo;t trust each other. And data worth less than the bounty is more profitably claimed than sold, so the honeypot sets a floor price on betrayal. Your Guardian becomes the entity most paranoid about losing your data. Aligned incentives.</p>
 
-  <p>&ldquo;But most people don&rsquo;t care about privacy. They&rsquo;ll just use the corporate coin.&rdquo; Yea, they just might. Most of them probably will, and that&rsquo;s fine. We can&rsquo;t want more privacy for people than they want for themselves. We can only give them the option. Today, that option doesn&rsquo;t exist.</p>
+  <p>&ldquo;But most people don&rsquo;t care about privacy. They&rsquo;ll just use the corporate coin.&rdquo; Yea, they just might. Most of them probably will, and that&rsquo;s fine. We can&rsquo;t want more privacy for people than they want for themselves. We can only give them the option. It&rsquo;s more than they have today.</p>
 
-  <p>So here&rsquo;s the offer. There&rsquo;s no token here, and no company. Just a design, <a href="/papers/ppn-litepaper-v1.pdf">published for anyone to build</a>. I don&rsquo;t have the bandwidth at the moment to build this, and I&rsquo;d be remiss if I didn&rsquo;t put it out there for others if they do.</p>
+  <p>Thanks for reading through all that.</p>
+
+  <p>If you don&rsquo;t like the concept and want to criticize it, you sort of have to read the <a href="/papers/ppn-litepaper-v1.pdf">lite paper</a> first in order to formulate a credible critique (which I very much welcome!)</p>
+
+  <p>And if you do like the concept, you should also read the <a href="/papers/ppn-litepaper-v1.pdf">lite paper</a>.</p>
+
+  <p>And if you love the concept, you should build it. Which means reading the <a href="/papers/ppn-litepaper-v1.pdf">lite paper</a> first.</p>
+
+  <p>All roads lead to Rome. Here&rsquo;s the link: <a href="/papers/ppn-litepaper-v1.pdf">PPN Lite Paper (PDF, v1)</a></p>
 
 </article>
 </main>
 
 <footer class="site">
-  <p><a href="/">← All publications</a> · <a href="/papers/ppn-litepaper-v1.pdf">Litepaper (PDF, v1)</a></p>
+  <p><a href="/">← All publications</a> · <a href="/papers/ppn-litepaper-v1.pdf">Lite paper (PDF, v1)</a></p>
 </footer>
 
 </body>
