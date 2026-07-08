@@ -9,6 +9,18 @@
   --accent-soft: #eef3f2;
 }
 
+/* Privacy Guardians palette for readers in dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #EDF1F8;
+    --text-soft: #BFCCE8;
+    --bg: #101A2C;
+    --rule: #2C3D5C;
+    --accent: #7BC89A;
+    --accent-soft: #1B2A44;
+  }
+}
+
 * { box-sizing: border-box; }
 
 html {
@@ -162,4 +174,15 @@ hr {
   border: none;
   border-top: 1px solid var(--rule);
   margin: 2.5rem 0;
+}
+
+figure {
+  margin: 2.25rem 0;
+}
+
+figure img {
+  display: block;
+  max-width: 100%;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
 }
