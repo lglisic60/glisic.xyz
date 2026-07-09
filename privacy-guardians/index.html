@@ -42,12 +42,6 @@
 
   <p>You pick a Privacy Guardian. It can be a bank, a fintech, a merchant network, a telecom, or (where the law allows it) a decentralized protocol, so no institution is needed at all. Your Guardian is the <em>only</em> party that sees your account: your identity (per local rules), your balance, your payments. A card payment today is seen by the merchant&rsquo;s processor, the acquiring bank, the card network, the issuing bank, and a handful of fraud and data vendors behind them. Here it&rsquo;s one party, and you chose it.</p>
 
-  <figure>
-    <picture>
-      <source srcset="/privacy-guardians/who-sees-dark.png" media="(prefers-color-scheme: dark)">
-      <img src="/privacy-guardians/who-sees-light.png" alt="Who sees a card payment today, compared with who sees a Privacy Guardians payment" loading="lazy">
-    </picture>
-  </figure>
 
   <p>Everyone else sees encrypted data they can&rsquo;t read. All funds sit in one neutral smart contract on Ethereum. Guardians never touch the money, and no Guardian, or consortium of Guardians, can freeze it. The ledger is partitioned, one encrypted section per Guardian, and each Guardian can read only its own. What the chain stores are cryptographic commitments: sealed envelopes that prove the ledger exists without revealing anything inside. Every few minutes, each Guardian proves in zero knowledge that its books match, exactly, the signed payment messages it processed, and the contract verifies the proof and adopts the new ledger. The public record of a settlement is one net number per Guardian, and the numbers sum to zero.</p>
 
@@ -61,12 +55,6 @@
 
   <p>All the while, the incentives are for the Guardians to remain honest. This design runs on the same economics as OUSD: deposits held as a diversified basket of yield-bearing dollar reserves, balances redeemable one-for-one. The difference is where the yield goes. Say half goes to the Guardians (enabling free payments, among other things) and the other half funds privacy insurance that pays <em>users</em> if their privacy is breached.</p>
 
-  <figure>
-    <picture>
-      <source srcset="/privacy-guardians/circular-economy-dark.png" media="(prefers-color-scheme: dark)">
-      <img src="/privacy-guardians/circular-economy-light.png" alt="The circular economy: users deposit stables, reserves earn yield, yield pays Guardians and insurers, Guardians protect users" loading="lazy">
-    </picture>
-  </figure>
 
   <p>Every Guardian is backed by an insurance pool: the Guardian&rsquo;s own money (say 15% of the pool), which it forfeits if it fails its users, plus capital from an open underwriting market where anyone can participate. Coverage per user is public. You can&rsquo;t inspect a Guardian&rsquo;s security practices, but you can see exactly what you&rsquo;d be paid if your privacy fails, and compare Guardians on that metric.</p>
 
