@@ -7,72 +7,19 @@
 <meta name="theme-color" content="#101A2C" media="(prefers-color-scheme: dark)">
 <title>Privacy Guardians: A Decentralized Private Payment Network — Leo Glisic</title>
 <meta name="description" content="Payments are moving on-chain. The open version should exist too: decentralized, censorship-resistant, more private than traditional finance, and fully compliant. A design published for anyone to build.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Privacy Guardians: A Decentralized Private Payment Network">
-<meta property="og:description" content="Decentralized, censorship-resistant, more private than traditional finance, and fully compliant. All four at once. A design published for anyone to build.">
-<meta property="og:url" content="https://glisic.xyz/privacy-guardians/">
-<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://glisic.xyz/papers/privacy-guardians-whitepaper-7-16-26.pdf">
+<meta http-equiv="refresh" content="0; url=/papers/privacy-guardians-whitepaper-7-16-26.pdf">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
 <main>
 <article>
-  <h1>Privacy Guardians</h1>
-  <p class="meta">July 2026 · <a href="/papers/privacy-guardians-whitepaper-v2.pdf" target="_blank" rel="noopener">White paper (PDF, v2)</a></p>
-
-  <hr>
-
-  <p>Last week, a consortium of more than 140 companies, including Visa, Mastercard, Stripe, BlackRock, Coinbase, and Google, announced OUSD: a stablecoin for everyday payments, zero fees to mint and redeem, reserve yield shared among the partners. Circle&rsquo;s stock fell 13% on the news. And they&rsquo;re right about the big thing. When the biggest names in money agree that payments are moving on-chain, that debate is over.</p>
-
-  <p>But the announcement leaves two questions unanswered. Who can see your payments? OUSD launches on fully public ledgers, run by companies whose businesses run on payment data, and nothing published so far addresses privacy at all. And who can turn your account off? The stablecoins OUSD competes with can freeze any address they choose, and a consortium coin is not going to have fewer controls than the coins it replaces. Somebody holds the switch.</p>
-
-  <p>So here&rsquo;s my claim, and I know how it sounds. We can build a much better version: decentralized, censorship-resistant, more private than anything in traditional finance, and fully compliant in every country where it operates. All four at once. Privacy and compliance don&rsquo;t have to trade off. And I&rsquo;m not building it myself; I&rsquo;m open-sourcing the whole design.</p>
-
-  <p>It&rsquo;s called Privacy Guardians.</p>
-
-  <p>It works like this.</p>
-
-  <p>You pick a Privacy Guardian. It can be a bank, a fintech, a merchant network, a telecom, or (where the law allows it) a decentralized protocol, so no institution is needed at all. Your Guardian is the <em>only</em> party that sees your account: your identity (per local rules), your balance, your payments. A card payment today is seen by the merchant&rsquo;s processor, the acquiring bank, the card network, the issuing bank, and a handful of fraud and data vendors behind them. Here it&rsquo;s one party, and you chose it.</p>
-
-
-  <p>Everyone else sees encrypted data they can&rsquo;t read. All funds sit in one neutral smart contract on Ethereum. Guardians never touch the money, and no Guardian, or consortium of Guardians, can freeze it. The ledger is partitioned, one encrypted section per Guardian, and each Guardian can read only its own. What the chain stores are cryptographic commitments: sealed envelopes that prove the ledger exists without revealing anything inside. Every few minutes, each Guardian proves in zero knowledge that its books match, exactly, the signed payment messages it processed, and the contract verifies the proof and adopts the new ledger. The public record of a settlement is one net number per Guardian, and the numbers sum to zero.</p>
-
-  <p>When you pay, your app posts an encrypted payment intent, and your Guardian confirms with a signed receipt in under a second. The canonical ledger catches up at the next settlement, minutes later. Card networks have run on this exact split for decades: instant authorization at the terminal, clearing and settlement later. The differences are that clearing here takes minutes instead of days, and correctness is enforced by a mathematical proof instead of an audit. If your recipient uses a different Guardian, the payment carries a second envelope only their Guardian can open, plus a signed settlement obligation the protocol collects automatically, cooperation or not. Value can&rsquo;t be created, dropped, or double-counted between Guardians; every movement traces back to the payer&rsquo;s signature. And each Guardian&rsquo;s books must sum exactly to its on-chain funds at every settlement, so fractional reserve scenarios are disallowed.</p>
-
-  <p>Even joining is private. A deposit names no Guardian and no account, just a hash. Your Guardian privately verifies the hash names it, opens your account on the spot, and claims the deposit later inside a batch, so nothing on the chain ever links you to your Guardian.</p>
-
-  <p>Leaving requires nobody&rsquo;s permission. Your whole account restores from a seed phrase. You can switch Guardians, like changing phone carriers and keeping your number, and the switch isn&rsquo;t even publicly visible. You can exit to Ethereum anytime: if your Guardian is hostile, or simply gone, you prove your balance via zk against the published ledger and the contract pays you directly. Only exits from the entire network are publicly visible.</p>
-
-  <p>And this slides right in with existing compliance laws, in every country. Warrants and subpoenas work through your Guardian exactly the way they work through a bank today. Each country decides which Guardians can serve its residents, the same way it licenses any other business. And the one flow that escapes Guardian oversight, exit to the public chain, happens in full view. There&rsquo;s nothing here a government needs to ban. If a Guardian is not compliant, it can ban that Guardian, just as it would any other entity.</p>
-
-  <p>All the while, the incentives are for the Guardians to remain honest. This design runs on the same economics as OUSD: deposits held as a diversified basket of yield-bearing dollar reserves, balances redeemable one-for-one. The difference is where the yield goes. Say half goes to the Guardians (enabling free payments, among other things) and the other half funds privacy insurance that pays <em>users</em> if their privacy is breached.</p>
-
-
-  <p>Every Guardian is backed by an insurance pool: the Guardian&rsquo;s own money (say 15% of the pool), which it forfeits if it fails its users, plus capital from an open underwriting market where anyone can participate. Coverage per user is public. You can&rsquo;t inspect a Guardian&rsquo;s security practices, but you can see exactly what you&rsquo;d be paid if your privacy fails, and compare Guardians on that metric.</p>
-
-  <p>My favorite part is the honeypot. Inside each pool sits a standing bounty, say 5% of the pool, paid automatically by smart contract to anyone who can <em>prove</em> they possess a Guardian&rsquo;s user data. The claim is a game you can&rsquo;t bluff. First you commit to your copy of the dataset. Only then does the contract draw its challenge: 64 random entries, which you must match against the chain&rsquo;s sealed commitments, in zero knowledge, so proving the theft doesn&rsquo;t leak the data again. Hold the full dataset and you pass easily. Hold half and your odds are below one in 10<sup>19</sup>. When a claim succeeds, the code does everything at once: the bounty pays out, the Guardian&rsquo;s 15% is forfeited into the pool, every affected user is compensated automatically (and privately), and users rotate to new Guardians, so the stolen data goes stale within days.</p>
-
-  <p>But the Guardian never steals its own honeypot: it would forfeit three times the prize, plus its whole business. An insider can claim it, and that&rsquo;s intended. It forces the Guardian to run internal controls so hardened that no employee can ever assemble the full dataset. Anyone who buys stolen data can double-cross the seller and claim the bounty, anonymously and profitably, so data thieves can&rsquo;t trust each other. And data worth less than the bounty is more profitably claimed than sold, so the honeypot sets a floor price on betrayal. Your Guardian becomes the entity most paranoid about losing your data. Aligned incentives.</p>
-
-  <p>&ldquo;But most people don&rsquo;t care about privacy. They&rsquo;ll just use the corporate coin.&rdquo; Yea, they just might. Most of them probably will, and that&rsquo;s fine. We can&rsquo;t want more privacy for people than they want for themselves. We can only give them the option. It&rsquo;s more than they have today.</p>
-
-  <p>Thanks for reading through all that.</p>
-
-  <p>If you don&rsquo;t like the concept and want to criticize it, you sort of have to read the white paper first in order to formulate a credible critique (which I very much welcome!)</p>
-
-  <p>And if you do like the concept, you should also read the white paper.</p>
-
-  <p>And if you love the concept, you should build it. Not a figure of speech: I&rsquo;m not building this myself. I&rsquo;m open-sourcing it so someone can. Which means reading the white paper first.</p>
-
-  <p>All roads lead to Rome. Here&rsquo;s the link: <a href="/papers/privacy-guardians-whitepaper-v2.pdf" target="_blank" rel="noopener">Privacy Guardians White Paper (PDF, v2)</a></p>
-
+  <p>Redirecting to the <a href="/papers/privacy-guardians-whitepaper-7-16-26.pdf">Privacy Guardians White Paper (PDF)</a>&hellip;</p>
 </article>
 </main>
 
-<footer class="site">
-  <p><a href="/">← All publications</a> · <a href="/papers/privacy-guardians-whitepaper-v2.pdf" target="_blank" rel="noopener">White paper (PDF, v2)</a></p>
-</footer>
+<script>location.replace("/papers/privacy-guardians-whitepaper-7-16-26.pdf");</script>
 
 </body>
 </html>
