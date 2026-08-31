@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fdfdfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101A2C" media="(prefers-color-scheme: dark)">
+<title>The Hot Mic Standard — Leo Glisic</title>
+<meta name="description" content="A strawman proposal: every device with a microphone must announce when it is listening. A manufacturing standard, an app, and the return of the private room.">
+<link rel="stylesheet" href="/style.css">
+<style>
+  .pagehead { text-align: center; margin-bottom: 2.5rem; }
+  .pagehead h1 { margin-bottom: 0.7rem; }
+  .pagehead .meta { margin: 0.15rem 0; }
+  .preamble { font-style: italic; color: var(--text-soft); }
+  .roadmap { text-align: center; }
+  .part { text-align: center; font-size: 1.45rem; font-weight: 600; letter-spacing: -0.01em; margin: 2.75rem 0 0.2rem; }
+  .part + .meta { text-align: center; margin-bottom: 2rem; }
+</style>
+</head>
+<body>
+
+<main>
+<article>
+
+  <div class="pagehead">
+    <h1>The Hot Mic Standard</h1>
+    <p class="meta">co-written by Leo and Fable</p>
+    <p class="meta">Aug. 31, 2026</p>
+  </div>
+
+  <p class="preamble">This is a strawman: a first draft of a government regulation for protecting everyday privacy in a world filling up with microphones. The next step, if the idea earns it, is scrutiny from industry, from privacy experts, and from cryptographers. Everything below is a starting point, not a finished design.</p>
+
+  <p class="roadmap">What follows is in two parts: a brief overview, then an expanded appendix for the details.</p>
+
+  <div class="part">Overview</div>
+  <p class="meta">604 words &middot; 3 min read</p>
+
+  <h2>The problem</h2>
+  <p>We&rsquo;re entering a world of mass cheap information processing. Any device that can listen (phone, watch, somebody&rsquo;s glasses, the TV, the car) will just listen, collect everything that&rsquo;s said, and process all of it. Not because anyone&rsquo;s plotting against you, but because collecting is free, processing is nearly free, and the recordings are worth more than the silence. Left alone, that&rsquo;s where the default goes: everything said near a microphone gets captured and processed. Zero privacy. Zero. And that&rsquo;s not acceptable to anyone. Not to the people being recorded, and not to the companies doing the recording either, whose customers have to be willing to talk.</p>
+
+  <h2>The principle</h2>
+  <p>Stopping the capture is not an option. Microphones are too small, too cheap, and too useful, and physics doesn&rsquo;t take regulation. What can be fixed is knowing about it. Privacy starts with knowing who is listening, and today there is no way to know; a hot microphone looks exactly like a cold one from two feet away.</p>
+  <p>A second principle governs the design: regulate products, not people. A manufacturing rule shapes what devices do by default, and it questions nobody&rsquo;s innocence. Rules aimed at individuals (licenses, declarations, presumptions of bad intent) hand government far too much power.</p>
+
+  <h2>The proposal</h2>
+  <p>Every device with a microphone must broadcast a standard radio signal whenever the microphone is hot. That&rsquo;s it. The rule applies at the manufacturing level and is enforced against manufacturers, like emissions standards. It never touches the people carrying the devices.</p>
+  <p>The citizen&rsquo;s side is an app. Your phone, with no new hardware, shows every compliant device listening within range. You walk into a room and look: three phones, a TV, a speaker, someone&rsquo;s glasses. If you want a private conversation, you ask people to flip their mics off, or you step outside together.</p>
+  <p>That is the entire mechanism. Devices announce themselves; your phone shows you; people work out the room. The regulation is one broadcast requirement, and everything above it is social.</p>
+
+  <h2>What it does, and what it doesn&rsquo;t</h2>
+  <p>This is herd privacy, like herd immunity. It ends ambient surveillance as a default (the phone on the table recording because nothing told it not to). It does not stop a determined adversary who builds or imports a non-compliant microphone; no manufacturing rule can, and the existing laws against covert interception remain in force for exactly that case. What changes is the nature of eavesdropping. It stops being something that happens on its own and becomes something a person has to deliberately do, with contraband hardware, against the law. Betrayal is still possible. It&rsquo;s just not free anymore.</p>
+  <p>The app has to be honest the same way. It shows compliant listeners, and it never claims a room is &ldquo;clean.&rdquo; A room with no beacons is a room with no honest listeners, which is all any instrument can show.</p>
+
+  <h2>The window</h2>
+  <p>The hardware that will define the ambient world is being designed right now: the glasses, the pendants, the assistants, the cars that listen on purpose. A broadcast standard costs nearly nothing when it&rsquo;s designed in and a great deal when it&rsquo;s retrofitted across an installed base, so the mandate has to come before ubiquity to be cheap. After ubiquity it still works, just slower and more expensive. The time to set the standard is while this hardware generation is still on the drawing board.</p>
+
+  <p>That is the whole proposal. What follows is the appendix: the beacon&rsquo;s machinery, the app and the room, the precedents, and the objections, each expanded for readers who want to check the work. If you stop here, you have the idea.</p>
+
+  <hr>
+
+  <div class="part">Appendix</div>
+  <p class="meta">2,046 words &middot; 10 min read</p>
+
+  <h2>The beacon</h2>
+  <p>The broadcast rides the Bluetooth Low Energy advertising channels, the same mechanism a phone uses to find its earbuds. Every phone made in the last decade can already receive it, and transmitting costs a rounding error of battery. The fixed, universal carrier is not a small detail: an app that might miss a beacon is an app that reports false privacy, and that is the one failure this system cannot afford. The radio&rsquo;s reach also happens to fit the job. A low-energy broadcast carries tens of meters indoors, which is roughly how far a conversation carries; the radio horizon and the acoustic horizon are about the same size, so the app&rsquo;s list approximates the honest question, namely who can hear you from where they stand.</p>
+  <p>The beacon itself is four small pieces: a declaration that a certified microphone is hot, a coarse device class (phone, wearable, speaker, TV), a random identifier that changes about once a minute, and a signature carrying a short-lived timestamp. Everything below is those four pieces doing their jobs.</p>
+  <p><strong>Tracking.</strong> The rotating identifier is what keeps a mandatory broadcast from becoming a mandatory tracking cookie. A beacon with a stable identity would let any mall follow any visitor by radio, which would be a surveillance mandate wearing a privacy costume. So the ID is meaningless, changes about once a minute, and links to nothing; the device class is deliberately coarse, and &ldquo;phone&rdquo; is a class of billions. Nobody can follow a device through a city by its beacon. This is proven mechanics rather than speculation: the 2020 Apple-Google exposure notification system broadcast anonymous rotating identifiers from billions of phones, continuously, and the design left no useful trail for anyone.</p>
+  <p><strong>Forgery.</strong> Certification happens where the mandate lives, at manufacture. A device model receives credentials at the factory, and every beacon it emits is signed so that a verifier learns exactly one fact: this came from a certified device of this class. Which device stays mathematically hidden (the tool is called a group signature, and the same family of cryptography already ships in the security chips of ordinary laptops). A transmitter without credentials can make radio noise, and the app labels it interference rather than counting it as a listener. And because keys can leak, credentials are issued per production batch and can be revoked: a batch whose key is extracted gets marked, apps treat its signatures as suspect, and the blast radius stays bounded to that batch rather than the brand.</p>
+  <p><strong>Replay.</strong> A recorded legitimate beacon would otherwise be a cheap way to manufacture phantom listeners: capture a real signal in a cafe, replay it in a boardroom, and watch the meeting die of suspicion. Each broadcast therefore carries a signed timestamp that expires in about a minute, so recordings die fast. Notice what the surviving attack achieves. Relaying a live signal requires radio equipment physically present in the target room, and the prize is making people falsely believe someone is listening. That is a nuisance with a one-minute shelf life and hardware in the room to find, not a surveillance channel.</p>
+  <p><strong>Flooding.</strong> The other cheap attack is drowning the app: ten thousand fake signals in a stadium, and everyone stops checking. Credentialed beacons are rate-limited, so a certified device cannot impersonate a crowd, and uncredentialed noise is aggregated into a single interference warning. Ten thousand phantom signals produce one line on the screen, not ten thousand listeners. Alarm fatigue is the death of every warning system, and it is designed against here from the start.</p>
+  <p>The standard also has blind spots, and they are stated here rather than discovered later.</p>
+  <p><strong>Non-compliant hardware.</strong> A microphone is a coil and a diaphragm, and a determined adversary can build or import one that never announces itself. The standard does not claim otherwise. It removes the ambient default, and it leaves the deliberate eavesdropper to the interception laws that already criminalize the act.</p>
+  <p><strong>Sensors that are not microphones.</strong> Fragments of speech can be recovered from exotic channels (motion sensors, laser reflections off a windowpane). The standard covers microphones because that is where the mass market and the mass harm are. The exotic channels remain rare, targeted, expensive, and already unlawful to use for interception.</p>
+  <p><strong>The installed base.</strong> The mandate binds new manufacture. Yesterday&rsquo;s devices never announce themselves, and they age out on the ordinary replacement cycle, a few years for phones and longer for televisions. Coverage grows with every product cycle, which is one more reason the rule should arrive before the ambient hardware generation ships rather than after.</p>
+
+  <h2>The app and the room</h2>
+  <p>The app lists listeners by device class (phone, wearable, speaker, TV) with rough distance from signal strength, updating as devices come and go. It needs no account and no connection; verification runs locally against published class keys, and scanning is entirely passive, so running the app reveals nothing about you. An instrument for checking who is listening must not itself be a thing that reports on you, and this one structurally cannot.</p>
+  <p>It follows one hard rule of honesty: it says &ldquo;no compliant listeners,&rdquo; never &ldquo;no listeners.&rdquo; The difference between those two sentences is the entire scope of the system, and the app does not get to promise more than a radio can know. A tool that overpromises privacy is worse than no tool, because people act on the promise.</p>
+  <p>The room protocol needs no technology beyond that. You ask the room to go quiet, mics off, or you take the conversation elsewhere. Consider what that reverses. Today a genuinely private room is almost impossible to construct, because there is no way to tell what&rsquo;s listening; the backstage, the room where people speak freely, has been quietly disappearing as microphones spread. Under the standard it takes one request, and the request becomes ordinary etiquette, the way asking someone to take a call outside became ordinary. What the protocol really does is convert betrayal from a passive default into an active lie. Before, a room could be surveilled by nobody doing anything; after, someone has to bring contraband hardware on purpose. Trust in the people present does the rest, as it always has.</p>
+  <p>Where the shape of the device allows it, off should be a physical switch that cuts the mic circuit. The switch does three honest things, none of which is provable across the room. You know your own device is off. Malware can&rsquo;t turn a cut circuit back on, and a person&rsquo;s own compromised phone is the biggest covert-listening threat they will ever face; the switch retires that whole class. And a switch can be shown across the table in a way a software setting cannot. Devices too small for a switch (jewelry, pendants) turn off the way they always have: take them off, power them down. That&rsquo;s physical too.</p>
+
+  <h2>Precedents and feasibility</h2>
+  <p>The regulatory shape already exists. Drones in the US are required to broadcast identification over radio while they fly; the rule is called Remote ID, it applies at the manufacturing level, and it has been in force for new drones since 2023. This proposal asks of microphones what aviation already asks of propellers.</p>
+  <p>The radio mechanics have already run at planetary scale. The 2020 exposure notification system put anonymous rotating-ID proximity broadcasts on billions of phones, across both major mobile platforms, and its privacy design held up under serious academic scrutiny. Every technical element the beacon needs was proven there.</p>
+  <p>The compliance machinery exists too. Every radio-bearing product sold in the US already passes device certification before it reaches a shelf; the beacon becomes one more item in a test suite manufacturers already run. No new agency, no new registry, no new bureaucracy. A line item in a certification that exists.</p>
+  <p>The same architectural idea is already arriving in a neighboring domain: cameras are beginning to sign what they capture at the moment of capture, so that provenance travels with the picture. Attestation at manufacture is becoming the normal way to make devices accountable for what they produce. Microphones announcing their state is the same idea, one sense over.</p>
+  <p>And the hardware asks are shipping parts. Bluetooth radios are already in essentially every product that has a microphone, hardware kill switches already exist on laptops and speakers, and the credential is a certificate issued at the factory. The whole beacon is firmware plus a signing key.</p>
+
+  <h2>Objections, answered</h2>
+  <p><strong>Criminals won&rsquo;t comply.</strong> Correct, and the standard doesn&rsquo;t need them to. The target is the default: today, surveilling a room requires doing nothing at all, and after the mandate it requires deliberately acquiring contraband hardware and breaking interception laws that already exist. Locks don&rsquo;t stop safecrackers; they define breaking and entering. The value of the rule is that the honest ninety-nine percent of hardware stops listening silently, and the dishonest one percent becomes a crime scene rather than a default setting.</p>
+  <p><strong>The beacon as a surveillance channel.</strong> Answered by construction: no identity, rotating IDs, and signatures that prove only the certified class. The beacon reveals that listening is happening, which is exactly what the public is owed, and nothing about who. The tracking analysis is in the beacon section above, and it inherits a billion-device precedent.</p>
+  <p><strong>Spoofing and flooding.</strong> Fake signals get labeled interference, replayed signals expire in about a minute, and real credentials are rate-limited, all as the beacon section describes. The attack that survives every countermeasure is bringing actual hot hardware into the room, which the app then reports. That is the system working.</p>
+  <p><strong>Battery and cost.</strong> A low-energy advertisement is about the cheapest thing a radio can do, and the marginal hardware cost is zero for anything that already contains a wireless chip, which is nearly everything with a microphone. The compliance cost is a test-suite line item and a factory-issued certificate.</p>
+  <p><strong>Form factors.</strong> Some devices can&rsquo;t fit a switch, and the standard doesn&rsquo;t pretend otherwise. The switch is a should, where the shape allows it; the beacon is the must, and it fits anything with firmware. For the switchless, off means powered down or taken off, which is physical too.</p>
+  <p><strong>Special classes.</strong> Hearing aids are listening devices by purpose, and they show why the standard needs a class table. A device that processes sound locally and retains nothing is doing something categorically different from a device that records, and the standard can class or exempt it accordingly. Drawing those lines is exactly the work standards bodies exist to do; nothing about it is novel.</p>
+  <p><strong>Imports and the gray market.</strong> Uncertified radios are already contraband in the US market, and the mass market does not run on them; it runs through carriers, retailers, and platforms that stock certified goods. The gray market persists at the edges, where it has always persisted, inside interception law. The standard&rsquo;s job is the shelves, not the smugglers.</p>
+  <p><strong>One country cannot fix a global market.</strong> It doesn&rsquo;t have to. Manufacturing consolidates on the strictest large market&rsquo;s requirements; California&rsquo;s emissions rules and Europe&rsquo;s charging-port rule set global defaults because separate product lines cost more than compliance. A US or EU beacon mandate becomes the world&rsquo;s default hardware. And the standard degrades gracefully in the meantime: your app plus your country&rsquo;s compliant devices give you legibility at home, whatever lags elsewhere.</p>
+  <p><strong>Ban always-on microphones instead.</strong> The ambient assistant is genuinely useful, and people will want it; a prohibition of useful things loses, and deserves to. The point of the standard is not to stop listening. It is to make listening visible, so that consent can exist and people can choose their rooms. Prohibition takes the choice away in the other direction.</p>
+  <p><strong>The market will handle it.</strong> It won&rsquo;t, for a structural reason: the first manufacturer to announce that its devices are listening makes its own products look worse next to silent competitors, so nobody moves first and everybody waits. Coordination problems where moving first is a penalty are what mandates are for; it&rsquo;s the same reason seatbelts and Remote ID weren&rsquo;t voluntary. And a single standard is what lets one app read every device. A market of incompatible beacons protects no one.</p>
+
+  <p>The point was never the radio. The point is that &ldquo;who is listening&rdquo; becomes a question with an answer, and a room where people can decide, together, that nobody is.</p>
+
+</article>
+</main>
+
+</body>
+</html>
