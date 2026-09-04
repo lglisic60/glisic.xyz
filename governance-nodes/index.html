@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Governance Nodes</title>
+<style>
+  body { margin: 0; background: #101A2C; color: #EFE9DA;
+         font-family: Georgia, 'Times New Roman', serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 56px 22px 90px; }
+  h1 { text-align: center; font-size: 2.1em; margin: 0 0 10px; font-weight: normal; }
+  h1.part { font-size: 1.5em; margin: 44px 0 6px; text-align: left; font-weight: bold; }
+  .subtitle { text-align: center; font-size: 1.08em; color: #B9CCBF; margin: 0 0 26px; line-height: 1.5; }
+  .byline { text-align: center; margin: 0 0 6px; }
+  .date { text-align: center; color: #7E9C8C; margin: 0 0 30px; }
+  .note { font-style: italic; color: #B9CCBF; border-left: 3px solid #5A7568; padding-left: 14px; }
+  h2 { font-size: 1.25em; margin: 34px 0 0; font-weight: bold; }
+  h3 { font-size: 1.08em; margin: 26px 0 0; font-weight: bold; }
+  p, li { line-height: 1.62; margin: 14px 0; font-size: 1.02em; }
+  ul { padding-left: 24px; margin: 14px 0; }
+  hr { border: none; border-top: 1px solid #ffffff22; margin: 30px 0; }
+  a { color: #D4A93F; text-decoration: none; border-bottom: 1px solid #D4A93F55; }
+  a:hover { border-bottom-color: #D4A93F; }
+  .edit { color: #FF9E8F; }
+  .paperfig { margin: 26px 0; border: 1px solid #ffffff14; border-radius: 6px; overflow: hidden; }
+  .paperfig figcaption { font-size: 0.88em; font-style: italic; color: #B9CCBF;
+                         padding: 8px 14px 12px; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+<h1>Governance Nodes</h1>
+<p>A single immutable smart contract for composable blockchain governance.</p>
+<p>Most blockchain governance is built by writing custom smart contracts. A project wants voting, quorums, timelocks, delegation, vetoes, or upgrade rights, and the normal answer is to write and deploy a new stack of contracts, which means the governance logic lives in bytecode, and changing the rules means upgrading or redeploying the contracts that define them.</p>
+<p>Governance Nodes takes a different approach. The Governance Nodes Contract (GNC) keeps the execution engine fixed and moves governance logic into state: a governance rule becomes data, stored inside Nodes. A quorum rule can be a Node. A timelock can be a Node. A veto can be a Node. A governor can be a Node that references the others. Governance systems can then be created, copied, forked, reused, and composed without writing a new contract every time, and a project can adopt another project's rule, fork it, and credit the lineage on-chain.</p>
+<p>The GNC is deliberately small: one fixed Node schema, twelve conditional operators, four action types. The constraints are the point; they are what make the system understandable, auditable, composable, and eventually formally verifiable. And authority stays local: a Node can only edit itself, only through its own Clauses. There is no hidden global admin, no banlist, no freeze switch, no upgrade path. If safety machinery is wanted, it is built as Nodes, not hardwired above them.</p>
+<p>The full technical specification is public: <a href="/papers/gov-nodes-spec-5-4-2026.pdf">Governance Nodes Contract, Technical Specification, Draft v1</a> (May 2026). In its own words: about 80 to 90 percent of a full, comprehensive spec; buyer beware, it might still contain a hallucination or two. It is prepared for public implementation and open-source collaboration, and it is written for a builder to read front to back and then implement.</p>
+<p><a href="https://x.com/Leo_Glisic/status/2053189403502375288">The announcement thread</a></p>
+</main>
+</body>
+</html>
