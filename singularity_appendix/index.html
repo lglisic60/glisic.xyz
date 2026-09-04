@@ -5,83 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Appendix</title>
 <style>
-  body { margin: 0; background: #101A2C; color: #EFE9DA;
-         font-family: Georgia, 'Times New Roman', serif; }
-  main { max-width: 760px; margin: 0 auto; padding: 56px 22px 90px; }
-  h1 { text-align: center; font-size: 2.1em; margin: 0 0 10px; font-weight: normal; }
-  h1.part { font-size: 1.5em; margin: 44px 0 6px; text-align: left; font-weight: bold; }
-  .subtitle { text-align: center; font-size: 1.08em; color: #B9CCBF; margin: 0 0 26px; line-height: 1.5; }
-  .byline { text-align: center; margin: 0 0 6px; }
-  .date { text-align: center; color: #7E9C8C; margin: 0 0 30px; }
-  .note { font-style: italic; color: #B9CCBF; border-left: 3px solid #5A7568; padding-left: 14px; }
-  h2 { font-size: 1.25em; margin: 34px 0 0; font-weight: bold; }
-  h3 { font-size: 1.08em; margin: 26px 0 0; font-weight: bold; }
-  p, li { line-height: 1.62; margin: 14px 0; font-size: 1.02em; }
-  ul { padding-left: 24px; margin: 14px 0; }
-  hr { border: none; border-top: 1px solid #ffffff22; margin: 30px 0; }
+  body { margin: 0; background: #101A2C; color: #EFE9DA; font-family: Georgia, 'Times New Roman', serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 120px 22px 90px; text-align: center; }
+  h1 { font-size: 2.1em; margin: 0 0 18px; font-weight: normal; }
+  p { line-height: 1.62; color: #B9CCBF; }
   a { color: #D4A93F; text-decoration: none; border-bottom: 1px solid #D4A93F55; }
   a:hover { border-bottom-color: #D4A93F; }
-  .edit { color: #FF9E8F; }
-  .paperfig { margin: 26px 0; border: 1px solid #ffffff14; border-radius: 6px; overflow: hidden; }
-  .paperfig figcaption { font-size: 0.88em; font-style: italic; color: #B9CCBF;
-                         padding: 8px 14px 12px; text-align: center; }
 </style>
 </head>
 <body>
 <main>
 <h1>Appendix</h1>
-<p class="subtitle">Surviving the Singularity</p>
-<p class="date">Sep. 4, 2026</p>
-<hr>
-<h2>Appendix A. AM_Leo, Specified</h2>
-<p>Sufficient to reimplement from this page. A community of n members files attestations; an attestation is a score s ≥ 0 from one member about another. The reference dials appear in parentheses; every dial is a community's own.</p>
-<ul>
-<li><strong>Entry.</strong> Each score enters as s^f (f = 0.5: the square root, quadratic voting).</li>
-<li><strong>Voting power and the cap.</strong> An attester's voting power is the sum of their entered scores. The mean is taken over members with positive voting power. Each attester's scores are divided by max(mean, own power): spending past the mean is clipped to it.</li>
-<li><strong>Conservation.</strong> For each attester, compute mean minus own power: positive is unspent voice, negative is clipped excess, each normalized by the mean. A bookkeeping node is added as participant n+1: every under-spender's unspent voice flows to it, and it re-emits the total clipped excess to each subject in proportion to the capped scores that subject already received. Nothing is destroyed.</li>
-<li><strong>Dangling attesters.</strong> A member who filed nothing has their voice distributed uniformly across all other members (never to the bookkeeping node).</li>
-<li><strong>Transitivity.</strong> With m = n + 1, the matrix becomes d·M + (1 − d)/m entrywise (d = 0.5, the damping dial). Levels are computed by power iteration, the vector rescaled by its maximum each round, until the step change falls below the convergence bound (10⁻⁶, within 1,000 rounds). If it fails to settle, the algorithm reports failure and returns nothing.</li>
-<li><strong>Interpolation.</strong> A direct tally is computed as each member's received entered scores, rescaled by the maximum. The blend weight on the transitive result is w = 1 minus the share of raw score received by members who filed no attestations onward. Final level = w times the transitive result plus (1 − w) times the direct tally. The pure form sets w = 1 and is the algorithm named AM_Leo; the blended form carries its full engineering name, AM_PRQV_interp_SimpleQV.</li>
-</ul>
-<h2>Appendix B. The Frame Computation and Personhood, Specified</h2>
-<p><strong>Frames.</strong> An assessment is a value in [0, 1] filed by one assessor about one subject on one question; the latest filing supersedes, with history retained. For a viewer v and assessor a, take every (subject, question) pair both have filed. The accuracy of a in v's frame is max(0, 1 minus the mean of the squared differences) over that overlap, a Brier-scored grading; an assessor with no overlap carries a neutral 0.25 until overlap accrues. A subject's score in v's frame is the accuracy-weighted average of the latest assessments, and where v holds a direct filing it takes half the weight, the weighted rest sharing the other half.</p>
-<p><strong>Personhood.</strong> Ceremony attestations are pairwise records of co-presence, forming a graph. A viewer's anchor for an identity is computed by walking that graph outward from the viewer: 1 for the self, at most 0.95 for anyone else (the ceremony certainty ceiling), multiplied by 0.85 per hop beyond direct ceremony, cut off below 0.01. The time factor is min(1, the square root of accrued exposure over 10 epochs). Personhood in the viewer's frame is anchor times time factor. A community's view of an identity is the median across its members' frames, and admission compares that median to the community's threshold (0.5 in the reference), returning admit or refuse. The dials are empirical and set in practice.</p>
-<h2>Appendix C. Simulation Parameters, Seeds, and the Run Ledger</h2>
-<p>Every number in Section 3 comes from the run ledger, sim/runs.json: 880 runs, each recording its probe, seed, dial settings, and outputs, under a header recording the code commit and interpreter version. The sweep grids: the constitution probe at world honesty floors {0, 0.25, 0.5} for loyal and loving channels, twenty seeds each; companion channels at herd weights {0, 0.25, 0.5, 0.75, 1.0}, twenty seeds; the attack and cure at town sizes {20, 60} and ring sizes up to 40, twenty seeds per cell; frames, twenty seeds; the size grid at {10, 20, 60, 150} members, ten seeds. Reference runs named in the text reproduce byte-identically from their stated seeds (the constitution reference: seed 112026). Replays run from the repository root as python3 -m sim.&lt;probe&gt;, and the full sweep as python3 -m sim.sweeps. The ledger, the sweep report, and the source live at <a href="https://github.com/Community-Graphs/surviving-the-singularity">github.com/Community-Graphs/surviving-the-singularity</a>.</p>
-<h2>Appendix D. Implementation Status, Guarantee by Guarantee</h2>
-<p>The design stands as specified in Sections 2, 4, and 5; the reference implementation is a single-machine rehearsal. Status, stated plainly:</p>
-<ul>
-<li>Substrate: genesis content-addressing implemented; memory, actions, logs, and membership rows are not yet hash-chained, so replica verification currently covers birth records only. Log visibility implements two of the design's three levels (private, public).</li>
-<li>Access control: none in the reference; the privacy tiers of Section 4.2 name the designed access layer, not current enforcement.</li>
-<li>Communities: kind and schema admission gates implemented; the personhood gate is computed in the reputation layer and not yet wired into joining.</li>
-<li>Reputation: assessments live in the engine's working tables, not yet persisted as substrate records; questions are presently a fixed set of dimensions rather than declared question nodes.</li>
-<li>Companions: channel filings ride under the human's identity with provenance tags; a distinct companion node kind, the vouch record, and unvouching as an operation are designed, not built. Calibration to seeing exists as the committed constitution channel; zero herd weight is a measured dial, not an enforced invariant; refusal is not modeled.</li>
-<li>Conservation: exact in the mechanism's construction; under damping and rescaling the implementation approximates it, and the bound is a verification task.</li>
-</ul>
-<h2>Appendix E. Glossary</h2>
-<ul>
-<li><strong>node</strong>: the one shape everything takes; four fields.</li>
-<li><strong>genesis record</strong>: what a node was born as; sealed; its hash is the node's identifier.</li>
-<li><strong>schema</strong>: the template for a kind of node; itself a node communities adopt.</li>
-<li><strong>fork</strong>: a new node citing its origin; how disagreement proceeds without edits.</li>
-<li><strong>attestation</strong>: a private membership or ceremony filing.</li>
-<li><strong>assessment</strong>: a private reputation filing: one assessor, one subject, one question.</li>
-<li><strong>question</strong>: an assessment dimension in plain language; itself a node.</li>
-<li><strong>level</strong>: membership as a number between zero and one, computed per community.</li>
-<li><strong>community</strong>: any collection of nodes with levels attached; the smallest is two.</li>
-<li><strong>ceremony</strong>: a real-world gathering whose participants attest each other's presence.</li>
-<li><strong>anchor</strong>: a viewer's ceremony-graph reachability to an identity; fades per hop.</li>
-<li><strong>conserved exposure</strong>: lived time on the record; the resource no attacker can mint.</li>
-<li><strong>personhood</strong>: anchor times the square root of conserved exposure; gates admission.</li>
-<li><strong>frame</strong>: everything computed for one viewer; no quantity exists outside one.</li>
-<li><strong>companion</strong>: a personal AI, one per person, raised under a constitution.</li>
-<li><strong>constitution</strong>: the public raising document; amended beside, never edited.</li>
-<li><strong>handle</strong>: a per-community name, linkable only by people who have met you.</li>
-<li><strong>Sybil attack</strong>: flooding a system with free identities that vouch for one another.</li>
-<li><strong>seed</strong>: the starting value that makes a simulation run exactly reproducible.</li>
-</ul>
-<hr>
-<p><a href="/singularity/">Back to the paper</a></p>
+<p>Coming soon: the algorithms specified in full, simulation parameters and seeds, implementation status, and the glossary.</p>
+<p><a href="/singularity/">Back to the paper</a> &#183; <a href="https://github.com/Community-Graphs/surviving-the-singularity">The code</a></p>
 </main>
 </body>
 </html>
