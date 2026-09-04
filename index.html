@@ -8,69 +8,15 @@
 <title>Leo Glisic</title>
 <meta name="description" content="Research and open designs by Leo Glisic.">
 <link rel="stylesheet" href="/style.css">
-<style>
-  .dicebox { margin-top: 3.5rem; text-align: center; }
-  .dice { display: inline-flex; gap: 18px; cursor: pointer; user-select: none; }
-  .die { width: 64px; height: 64px; background: var(--accent-soft); border: 1px solid var(--rule);
-         border-radius: 12px; display: flex; align-items: center; justify-content: center;
-         font-size: 46px; color: var(--text); transition: transform .12s; }
-  .dice:hover .die { transform: translateY(-3px); }
-  .dice.rolling .die { animation: sh .5s infinite; }
-  @keyframes sh { 0%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} 100%{transform:rotate(-8deg)} }
-  .dicehint { margin-top: .8rem; font-size: .8rem; color: var(--text-soft); }
-  .odds { margin-top: .35rem; font-size: .72rem; color: var(--text-soft); line-height: 1.7; opacity: .8; }
-</style>
 </head>
 <body>
 
 <main class="index">
   <nav class="pubs">
     <a class="biglink" href="/papers/privacy-guardians-whitepaper-7-16-26.pdf">Privacy Guardians</a>
-    <a class="biglink" href="/governance-nodes/">Governance Nodes</a>
-    <a class="biglink" href="/singularity/">Surviving the Singularity</a>
+    <a class="biglink" href="https://x.com/Leo_Glisic/status/2053189403502375288">Governance Nodes <span class="ext">↗</span></a>
   </nav>
-
-  <div class="dicebox">
-    <div class="dice" id="dice" role="button" tabindex="0" aria-label="Roll the dice: go somewhere on this site by chance">
-      <div class="die" id="d1">&#9856;</div><div class="die" id="d2">&#9856;</div>
-    </div>
-    <div class="dicehint">or let the dice decide</div>
-    <div class="odds">snake eyes &#8594; ? &#183; 3&#8211;5 &#8594; Governance Nodes &#183; 6&#8211;7 &#8594; Privacy Guardians<br>
-    8&#8211;9 &#8594; Surviving the Singularity &#183; 10&#8211;11 &#8594; the code &#183; 12 &#8594; the appendix</div>
-  </div>
 </main>
-
-<script>
-(function(){
-var faces=["\u2680","\u2681","\u2682","\u2683","\u2684","\u2685"];
-var d1=document.getElementById('d1'),d2=document.getElementById('d2'),dice=document.getElementById('dice');
-function dest(s){
-  if(s===2) return "/journey/";
-  if(s<=5) return "/governance-nodes/";
-  if(s<=7) return "/papers/privacy-guardians-whitepaper-7-16-26.pdf";
-  if(s<=9) return "/singularity/";
-  if(s<=11) return "https://github.com/Community-Graphs/surviving-the-singularity";
-  return "/singularity_appendix/";
-}
-var rolling=false;
-function roll(){
-  if(rolling) return;
-  rolling=true; dice.classList.add('rolling');
-  var t0=Date.now(), iv=setInterval(function(){
-    d1.textContent=faces[Math.floor(Math.random()*6)];
-    d2.textContent=faces[Math.floor(Math.random()*6)];
-    if(Date.now()-t0>1100){
-      clearInterval(iv); dice.classList.remove('rolling');
-      var a=1+Math.floor(Math.random()*6), b=1+Math.floor(Math.random()*6);
-      d1.textContent=faces[a-1]; d2.textContent=faces[b-1];
-      setTimeout(function(){ location.href=dest(a+b); }, 650);
-    }
-  },80);
-}
-dice.addEventListener('click',roll);
-dice.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); roll(); } });
-})();
-</script>
 
 </body>
 </html>
