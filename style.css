@@ -210,3 +210,12 @@ figure img {
   border: 1px solid var(--rule);
   border-radius: 8px;
 }
+
+/* one line per title on any phone: never wrap, scale down with the screen
+   (6vw keeps the longest title inside a 320px-wide display) */
+.biglink { white-space: nowrap; }
+
+@media (max-width: 520px) {
+  .biglink { font-size: clamp(1rem, 6vw, 1.45rem); }
+  .biglink .ext { font-size: 0.65em; }
+}
